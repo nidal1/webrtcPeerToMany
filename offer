@@ -1,0 +1,44 @@
+offer
+1. start stream 
+start() :
+    - start media stream 
+createOffer() :
+    - create rtcpeerconnection
+    - create offer sdp
+    - set local description 
+    - send offer to database
+    - push rtcpeerconnection to array with offer document id and answer document id as null
+    
+    
+
+2. Listen to a new answer
+addAnswer(answer document) :
+    - get answer sdp, answer document id and offer document id
+    - find object with offer document id and answer document id must be null
+    - set answer document id with this answer document id
+    - set remote description for this rtcpeerconnection object by the answer sdp
+    - createOffer()
+    - listen to answerCandidate subcollection relative to this answer document id for incomming candidates
+        - add this candidates to this rtcpeerconnection object
+    - sendICE(rtcpeerconnection object, offer document id)
+
+sendICE(rtcpeerconnection object, offer document id):
+    - listen to onicecandidate event relative to this rtcpeerconnection object
+        - send candidate to offerCandidate subcollection relative to offer document id
+
+    
+
+
+
+
+answers
+1. get stream id 
+2. get offer
+3. create rtcpeerconnection
+4. set remote description 
+5. create answer
+6. set local description
+7. send answer to database with offer document id
+8. listen to offerCandidate subcollection relative to this offer document id for incomming candidates
+9. listen to onicecandidate event relative to this rtcpeerconnection object
+    - send candidate to answerCandidate subcollection relative to this answer document id
